@@ -7,12 +7,20 @@ const API_URL = '/schedule';
 //API 호출담당 로그인, 회원가입 부분
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
+
+
+//REAL
 export const LOGIN_URL = `${API_URL}/login`;
-// export const LOGIN_URL = `http://localhost:4567/schedule/login`;
-// export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
 export const REGISTER_URL = `${API_URL}/register`;
+
+//LOCAL PC DEV
+// export const LOGIN_URL = `http://localhost:4567/schedule/login`;
 // export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
+
+//LOCAL RAS DEV
+// export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
 // export const REGISTER_URL = 'http://172.30.1.8:4567/schedule/signup';
+
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
 
 type LoginResponse = {
