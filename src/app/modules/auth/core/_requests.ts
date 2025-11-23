@@ -10,12 +10,12 @@ export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 
 
 //REAL
-export const LOGIN_URL = `${API_URL}/login`;
-export const REGISTER_URL = `${API_URL}/register`;
+// export const LOGIN_URL = `${API_URL}/login`;
+// export const REGISTER_URL = `${API_URL}/register`;
 
 //LOCAL PC DEV
-// export const LOGIN_URL = `http://localhost:4567/schedule/login`;
-// export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
+export const LOGIN_URL = `http://localhost:4567/schedule/login`;
+export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
 
 //LOCAL RAS DEV
 // export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
