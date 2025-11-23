@@ -4,8 +4,9 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
+// import {getUserByToken, login} from '../core/_requests'
 // import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {login} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 
 const loginSchema = Yup.object().shape({
@@ -41,15 +42,48 @@ export function Login() {
     validationSchema: loginSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
+      setStatus('')  // 이전 에러 메시지 초기화
+
       try {
-        const {data: auth} = await login(values.email, values.password)
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
-      } catch (error) {
+        const {data} = await login(values.email, values.password)
+
+        // 서버 응답: { msg, code, message }
+        if (data.code === '200') {
+          // 로그인 성공
+
+          // 임시 auth / user 객체 (형식은 나중에 자바 서버에 맞춰 확장 가능)
+          const auth: any = { api_token: 'dummy-token' }
+          const user: any = {
+            id: 1,
+            email: values.email,
+            name: data.msg ?? '사용자',
+          }
+
+          // Metronic의 AuthContext 채워주기
+          saveAuth(auth)
+          setCurrentUser(user)
+
+          setSubmitting(false)
+          setLoading(false)
+          // 여기서 따로 navigate 안 해도,
+          // currentUser가 생기면 AppRoutes에서 자동으로 /dashboard 로 라우팅됨
+        } else {
+          // 로그인 실패 (비밀번호 오류 등)
+          saveAuth(undefined)
+          setStatus(data.msg || '로그인에 실패했습니다.')
+          setSubmitting(false)
+          setLoading(false)
+        }
+      } catch (error: any) {
         console.error(error)
         saveAuth(undefined)
-        setStatus('The login details are incorrect')
+
+        const msg =
+            error?.response?.data?.msg ||
+            error?.response?.data?.message ||
+            '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+
+        setStatus(msg)
         setSubmitting(false)
         setLoading(false)
       }

@@ -4,16 +4,18 @@ import {useState, useEffect} from 'react'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {getUserByToken, register} from '../core/_requests'
+// import {getUserByToken, register} from '../core/_requests'
+import {register} from '../core/_requests'
+import {useNavigate} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 // import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components'
-import {useAuth} from '../core/Auth'
+// import {useAuth} from '../core/Auth'
 // 회원가입 페이지 UI 부분
 
 const initialValues = {
   name: '',
-  lastname: '',
+  // lastname: '',
   email: '',
   password: '',
   changepassword: '',
@@ -30,10 +32,10 @@ const registrationSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
-  lastname: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Last name is required'),
+  // lastname: Yup.string()
+  //   .min(3, 'Minimum 3 symbols')
+  //   .max(50, 'Maximum 50 symbols')
+  //   .required('Last name is required'),
   password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
@@ -48,27 +50,48 @@ const registrationSchema = Yup.object().shape({
 
 export function Registration() {
   const [loading, setLoading] = useState(false)
-  const {saveAuth, setCurrentUser} = useAuth()
+  const navigate = useNavigate()
+  // const {saveAuth, setCurrentUser} = useAuth()
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
+      setStatus('')
       try {
-        const {data: auth} = await register(
+        const {data} = await register(
           values.email,
           values.name,
           // values.lastname,
           values.password,
           values.changepassword
         )
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
-      } catch (error) {
+
+        //자바 구조에 맞게 변경한 내역
+        if (data.code === "200") {
+          // 성공 처리
+          setStatus('회원가입이 완료되었습니다. 로그인 해주세요.')
+          setSubmitting(false)
+          setLoading(false)
+
+          // 바로 로그인 화면으로 이동
+          navigate('/auth/login')
+          return
+        } else {
+          // 서버가 200인데 실패 표시인 경우
+          setStatus(data.msg || '회원가입에 실패했습니다.')
+          formik.status = '회원가입에 실패했습니다.'
+          setSubmitting(false)
+          setLoading(false)
+        }
+      } catch (error: any) {
         console.error(error)
-        saveAuth(undefined)
-        setStatus('The registration details is incorrect')
+        // 여기로 오는 건 HTTP 에러(4xx/5xx) 같은 진짜 예외일 때
+        const msg =
+            error.response?.data?.msg ||
+            error.response?.data?.message ||
+            '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+        setStatus(msg)
         setSubmitting(false)
         setLoading(false)
       }

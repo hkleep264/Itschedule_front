@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AuthModel, UserModel } from "./_models";
-import CryptoJS from 'crypto-js';
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
@@ -15,14 +14,18 @@ export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
 export const AES_KEY = "itschedulehash";
 
+type LoginResponse = {
+    msg: string
+    code: string
+    message: string
+}
 
 export function login(email: string, password: string) {
-  const hashpwd = getHashEnc(password);
-  return axios.post(
+  return axios.post<LoginResponse>(
       LOGIN_URL,
       {
         email: email,
-        password: hashpwd,
+        password: password,
       },
       {
         headers: {
@@ -30,19 +33,6 @@ export function login(email: string, password: string) {
         },
       }
   )
-}
-
-export function getHashEnc(password: string){
-  const encrypted = CryptoJS.AES.encrypt(password, AES_KEY).toString();
-  return encrypted;
-
-}
-
-export function getHashDec(password: string){
-  const bytes = CryptoJS.AES.decrypt(AES_KEY, password);
-  const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  return decrypted;
-
 }
 
 // // Server should return AuthModel
@@ -80,13 +70,13 @@ export function register(
     password: string,
     password_confirmation: string
 ) {
-  const hashpwd = getHashEnc(password);
+    console.log("ggi");
   return axios.post(
       REGISTER_URL,
       {
         name: name,
         email: email,
-        password: hashpwd,
+        password: password,
         password2 : password_confirmation
       },
       {
