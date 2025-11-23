@@ -12,7 +12,6 @@ export const LOGIN_URL = `http://localhost:4567/schedule/login`;
 // export const REGISTER_URL = `${API_URL}/register`;
 export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
-export const AES_KEY = "itschedulehash";
 
 type LoginResponse = {
     msg: string
