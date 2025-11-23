@@ -6,11 +6,11 @@ const API_URL = import.meta.env.VITE_APP_API_URL;
 //API 호출담당 로그인, 회원가입 부분
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
-// export const LOGIN_URL = `${API_URL}/login`;
-export const LOGIN_URL = `http://localhost:4567/schedule/login`;
+export const LOGIN_URL = `${API_URL}/login`;
+// export const LOGIN_URL = `http://localhost:4567/schedule/login`;
 // export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
-// export const REGISTER_URL = `${API_URL}/register`;
-export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
+export const REGISTER_URL = `${API_URL}/register`;
+// export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
 
 type LoginResponse = {
