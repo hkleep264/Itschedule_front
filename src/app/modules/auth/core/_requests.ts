@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
+//API 호출담당 로그인, 회원가입 부분
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 // export const LOGIN_URL = `${API_URL}/login`;

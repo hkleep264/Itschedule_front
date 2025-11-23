@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
 import {requestPassword} from '../core/_requests'
 
+//비밀번호 찾기 페이지
 const initialValues = {
   email: 'admin@demo.com',
 }

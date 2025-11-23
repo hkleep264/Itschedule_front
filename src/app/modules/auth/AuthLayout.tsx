@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import {Outlet, Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 
+//회원가입 레이아웃 페이지
 const AuthLayout = () => {
   useEffect(() => {
     const root = document.getElementById('root')

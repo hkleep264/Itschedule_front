@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom'
 // import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components'
 import {useAuth} from '../core/Auth'
+// 회원가입 페이지 UI 부분
 
 const initialValues = {
   name: '',

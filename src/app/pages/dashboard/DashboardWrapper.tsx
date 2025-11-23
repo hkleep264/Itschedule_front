@@ -18,6 +18,7 @@ import {
 } from '../../../_metronic/partials/widgets'
 import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
 import { Content } from '../../../_metronic/layout/components/content'
+//Dashboard 메인페이지 랜딩부분
 
 const DashboardPage: FC = () => (
   <>
