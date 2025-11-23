@@ -23,8 +23,8 @@ const loginSchema = Yup.object().shape({
 
 //로그인 UI 페이지
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: 'test@test.com',
+  password: 'qwe123',
 }
 
 /*
