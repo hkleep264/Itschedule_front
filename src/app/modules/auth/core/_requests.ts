@@ -12,14 +12,17 @@ export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 //REAL
 // export const LOGIN_URL = `${API_URL}/login`;
 // export const REGISTER_URL = `${API_URL}/register`;
+// export const CHECK_ME_URL = `${API_URL}/me`;
 
 //LOCAL PC DEV
 export const LOGIN_URL = `http://localhost:4567/schedule/login`;
 export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
+export const CHECK_ME_URL = 'http://localhost:4567/schedule/me';
 
 //LOCAL RAS DEV
 // export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
 // export const REGISTER_URL = 'http://172.30.1.8:4567/schedule/signup';
+// export const CHECK_ME_URL = 'http://172.30.1.8:4567/schedule/me';
 
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
 
@@ -27,6 +30,7 @@ type LoginResponse = {
     msg: string
     code: string
     message: string
+    data : string
 }
 
 export function login(email: string, password: string) {
@@ -39,7 +43,8 @@ export function login(email: string, password: string) {
       {
         headers: {
           'Content-Type': 'application/json',
-        },
+
+        }, withCredentials: true,
       }
   )
 }
@@ -91,7 +96,8 @@ export function register(
       {
         headers: {
           'Content-Type': 'application/json',
-        },
+
+        }, withCredentials: true,
       }
   )
 }
@@ -107,4 +113,9 @@ export function getUserByToken(token: string) {
   return axios.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL, {
     api_token: token,
   });
+}
+
+// Admin 권한 확인
+export function getMyInfo() {
+    return axios.get(CHECK_ME_URL, {withCredentials: true})
 }

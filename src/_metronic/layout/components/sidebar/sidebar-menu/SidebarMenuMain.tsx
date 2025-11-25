@@ -1,21 +1,48 @@
 import {useIntl} from 'react-intl'
-import {KTIcon} from '../../../../helpers'
-import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
+// import {KTIcon} from '../../../../helpers'
+// import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
 import {SidebarMenuItem} from './SidebarMenuItem'
+import { useAuth } from '../../../../../app/modules/auth'
 
 const SidebarMenuMain = () => {
-  const intl = useIntl()
+    const intl = useIntl()
+    //Admin 권한 체크
+    const { currentUser } = useAuth()
+    const isAdmin = currentUser?.isAdmin === true
 
   return (
     <>
+      {/* Dashboard*/}
       <SidebarMenuItem
         to='/dashboard'
         icon='element-11'
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
+      {/* Layout Builder */}
       <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
-      <div className='menu-item'>
+
+        {/* 프로젝트*/}
+        <SidebarMenuItem
+            to='/project_list'
+            icon='element-11'
+            title='프로젝트 관리'
+            fontIcon='bi-app-indicator'
+        />
+        {/* 이슈 관리 */}
+        <SidebarMenuItem to='/issue_list' icon='switch' title='이슈 관리' fontIcon='bi-layers' />
+
+        {/* 관리자만 보이는 메뉴 */}
+        {isAdmin && (
+            <SidebarMenuItem
+                to='/admin/dashboard'
+                icon='shield-tick'
+                title='관리자 메뉴'
+                fontIcon='bi-shield-check'
+            />
+        )}
+
+      {/*<div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
@@ -113,7 +140,7 @@ const SidebarMenuMain = () => {
           </span>
           <span className='menu-title'>Changelog {import.meta.env.VITE_APP_VERSION}</span>
         </a>
-      </div>
+      </div>*/}
     </>
   )
 }

@@ -44,12 +44,13 @@ export interface UserSocialNetworksModel {
 }
 
 export interface UserModel {
-  id: number
-  username: string
-  password: string | undefined
-  email: string
-  first_name: string
-  last_name: string
+  id?: number
+  username?: string
+  password?: string | undefined
+  email?: string
+  isAdmin?: boolean //Admin 권한 체크
+  first_name?: string
+  last_name?: string
   fullname?: string
   occupation?: string
   companyName?: string
@@ -64,4 +65,5 @@ export interface UserModel {
   communication?: UserCommunicationModel
   address?: UserAddressModel
   socialNetworks?: UserSocialNetworksModel
+
 }

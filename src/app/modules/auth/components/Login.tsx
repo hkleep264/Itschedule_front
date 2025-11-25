@@ -6,7 +6,8 @@ import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
 // import {getUserByToken, login} from '../core/_requests'
 // import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {login} from '../core/_requests'
+
+import {login, getMyInfo} from '../core/_requests'
 import {useAuth} from '../core/Auth'
 
 const loginSchema = Yup.object().shape({
@@ -50,7 +51,6 @@ export function Login() {
         // 서버 응답: { msg, code, message }
         if (data.code === '200') {
           // 로그인 성공
-
           // 임시 auth / user 객체 (형식은 나중에 자바 서버에 맞춰 확장 가능)
           const auth: any = { api_token: 'dummy-token' }
           const user: any = {
@@ -62,6 +62,27 @@ export function Login() {
           // Metronic의 AuthContext 채워주기
           saveAuth(auth)
           setCurrentUser(user)
+
+          try {
+            const meResponse = await getMyInfo()
+            const me = meResponse.data
+
+            if (me.authenticated) {
+              setCurrentUser({
+                email: me.email,
+                isAdmin: me.isAdmin,
+              })
+            } else {
+              // 이 경우는 거의 없겠지만, 안전하게 처리
+              setCurrentUser(undefined)
+            }
+          } catch (e) {
+            console.error('getMyInfo error after login:', e)
+            // 최소한 로그인은 됐으니, 이메일만이라도 채워둠
+            setCurrentUser({
+              email: values.email,
+            } as any)
+          }
 
           setSubmitting(false)
           setLoading(false)
