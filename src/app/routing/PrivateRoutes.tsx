@@ -7,6 +7,8 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import {BoardPage} from '../pages/project-board/BoardPage.tsx'
+import {AdminRoute} from './AdminRoute'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -23,6 +25,13 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
+        {/* 관리자 전용 라우트 그룹 */}
+        <Route element={<AdminRoute />}>
+            {/* 프로젝트 리스트 라우팅 */}
+            <Route path='/project/board' element={<BoardPage />} />
+        </Route>
+
+
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* Lazy Modules */}

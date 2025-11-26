@@ -1,6 +1,6 @@
 import {useIntl} from 'react-intl'
-// import {KTIcon} from '../../../../helpers'
-// import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
+import {KTIcon} from '../../../../helpers'
+import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
 import {SidebarMenuItem} from './SidebarMenuItem'
 import { useAuth } from '../../../../../app/modules/auth'
 
@@ -35,14 +35,18 @@ const SidebarMenuMain = () => {
         {/* 관리자만 보이는 메뉴 */}
         {isAdmin && (
             <SidebarMenuItem
-                to='/admin/dashboard'
-                icon='shield-tick'
-                title='관리자 메뉴'
-                fontIcon='bi-shield-check'
+                to='/project/board'
+                icon='abstract-26'
+                title='프로젝트 리스트(관리자)'
+                fontIcon='bi-list-columns'
+                // fontIcon='bi-shield-check'
+                // icon='shield-tick'
             />
         )}
 
-      {/*<div className='menu-item'>
+      {/*아래는 기존 메뉴*/}
+
+      <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
@@ -140,7 +144,7 @@ const SidebarMenuMain = () => {
           </span>
           <span className='menu-title'>Changelog {import.meta.env.VITE_APP_VERSION}</span>
         </a>
-      </div>*/}
+      </div>
     </>
   )
 }
