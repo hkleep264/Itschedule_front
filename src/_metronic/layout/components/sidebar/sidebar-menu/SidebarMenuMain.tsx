@@ -22,16 +22,6 @@ const SidebarMenuMain = () => {
       {/* Layout Builder */}
       <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
 
-        {/* 프로젝트*/}
-        <SidebarMenuItem
-            to='/project_list'
-            icon='element-11'
-            title='프로젝트 관리'
-            fontIcon='bi-app-indicator'
-        />
-        {/* 이슈 관리 */}
-        <SidebarMenuItem to='/issue_list' icon='switch' title='이슈 관리' fontIcon='bi-layers' />
-
         {/* 관리자만 보이는 메뉴 */}
         {isAdmin && (
             <SidebarMenuItem
@@ -44,9 +34,16 @@ const SidebarMenuMain = () => {
             />
         )}
 
+        <SidebarMenuItem
+            to='/issue'
+            icon='abstract-26'
+            title='이슈 관리'
+            fontIcon='bi-exclamation-triangle'
+        />
+
       {/*아래는 기존 메뉴*/}
 
-      <div className='menu-item'>
+      {/*<div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
@@ -144,7 +141,7 @@ const SidebarMenuMain = () => {
           </span>
           <span className='menu-title'>Changelog {import.meta.env.VITE_APP_VERSION}</span>
         </a>
-      </div>
+      </div>*/}
     </>
   )
 }

@@ -11,6 +11,10 @@ import {BoardPage} from '../pages/project-board/BoardPage.tsx'
 import {BoardDetailPage} from "../pages/project-board/BoardDetailPage.tsx";
 import {BoardEditPage} from "../pages/project-board/BoardEditPage.tsx";
 import {BoardCreatePage} from '../pages/project-board/BoardCreatePage'
+import {IssueListPage} from '../pages/issue/IssueListPage'
+import {IssueCreatePage} from '../pages/issue/IssueCreatePage'
+import {IssueDetailPage} from '../pages/issue/IssueDetailPage'
+import {IssueEditPage} from '../pages/issue/IssueEditPage'
 import {AdminRoute} from './AdminRoute'
 
 
@@ -38,6 +42,11 @@ const PrivateRoutes = () => {
             <Route path='/board/:id' element={<BoardDetailPage />} />
             <Route path='/board/:id/edit' element={<BoardEditPage />} />
         </Route>
+        {/* 이슈 리스트 라우팅 */}
+          <Route path='/issue' element={<IssueListPage />} />
+          <Route path='/issue/new' element={<IssueCreatePage />} />
+          <Route path='/issue/:id' element={<IssueDetailPage />} />
+          <Route path='/issue/:id/edit' element={<IssueEditPage />} />
 
 
         <Route path='builder' element={<BuilderPageWrapper />} />
