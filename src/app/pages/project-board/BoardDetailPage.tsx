@@ -2,6 +2,12 @@ import {FC, useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
+type ProjectMember = {
+    userName: string
+    userId: string
+    email: string
+}
+
 type BoardDetail = {
     boardInfo: any;
     id: number
@@ -12,6 +18,7 @@ type BoardDetail = {
     updated: string
     startDate: string
     endDate: string
+    userList: ProjectMember[]
 }
 
 const BOARD_INFO_API = 'http://localhost:4567/schedule/board/info'
@@ -28,7 +35,10 @@ export const BoardDetailPage: FC = () => {
                     boardId: id
                 },
                 {withCredentials: true})
-            setData(res.data)
+            setData({
+                ...res.data,
+                userList: res.data.userList ?? [],
+            })
         } catch (e) {
             console.error(e)
         }
@@ -88,6 +98,38 @@ export const BoardDetailPage: FC = () => {
                         {data.boardInfo.startDate} ~ {data.boardInfo.endDate}
                     </div>
                 </div>
+            </div>
+
+            {/* 🔥 프로젝트 참여 멤버 */}
+            <div className='card-body mb-5'>
+                <label className='fw-bold mb-2'>프로젝트 참여 멤버</label>
+
+                {(!data.userList || data.userList.length === 0) && (
+                    <div className='text-muted fs-7'>등록된 멤버가 없습니다.</div>
+                )}
+
+                {data.userList && data.userList.length > 0 && (
+                    <div className='table-responsive'>
+                        <table className='table align-middle table-row-dashed fs-7 gy-2'>
+                            <thead>
+                            <tr className='text-start text-gray-500 fw-bold text-uppercase'>
+                                {/*<th style={{width: '80px'}}>ID</th>*/}
+                                <th>이름</th>
+                                <th>이메일</th>
+                            </tr>
+                            </thead>
+                            <tbody className='text-gray-700 fw-semibold'>
+                            {data.userList.map((user) => (
+                                <tr key={user.userId}>
+                                    {/*<td>{user.userId}</td>*/}
+                                    <td>{user.userName}</td>
+                                    <td>{user.email}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     )
