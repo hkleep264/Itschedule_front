@@ -112,10 +112,15 @@ export const BoardPage: FC = () => {
                                 검색
                             </button>
 
-                            <button type='button' className='btn btn-sm btn-primary'>
+                            <button
+                                type='button'
+                                className='btn btn-sm btn-primary'
+                                onClick={() => navigate('/board/new')}
+                            >
                                 <i className='bi bi-pencil-square me-1'></i>
                                 글쓰기
                             </button>
+
                         </form>
                     </div>
 

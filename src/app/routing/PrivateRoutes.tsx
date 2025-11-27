@@ -10,6 +10,7 @@ import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import {BoardPage} from '../pages/project-board/BoardPage.tsx'
 import {BoardDetailPage} from "../pages/project-board/BoardDetailPage.tsx";
 import {BoardEditPage} from "../pages/project-board/BoardEditPage.tsx";
+import {BoardCreatePage} from '../pages/project-board/BoardCreatePage'
 import {AdminRoute} from './AdminRoute'
 
 
@@ -33,6 +34,7 @@ const PrivateRoutes = () => {
         <Route element={<AdminRoute />}>
             {/* 프로젝트 리스트 라우팅 */}
             <Route path='/project/board' element={<BoardPage />} />
+            <Route path='/board/new' element={<BoardCreatePage />} />
             <Route path='/board/:id' element={<BoardDetailPage />} />
             <Route path='/board/:id/edit' element={<BoardEditPage />} />
         </Route>
