@@ -7,6 +7,7 @@ export type Issue = {
     projectName: string
     issueType: string
     issuePriority: '1' | '2' | '3'
+    issueStatus: '0' | '1' | '2'
     managerUserId: string
     managerName: string
     startDate: string
@@ -32,12 +33,25 @@ type ProjectWithMembers = {
 }
 
 export const priorityOptions = [
-    {value: 1, label: '상'},
-    {value: 2, label: '중'},
-    {value: 3, label: '하'},
+    {value: '1', label: '상'},
+    {value: '2', label: '중'},
+    {value: '3', label: '하'},
 ]
 
-export const getPriorityLabel = (value: number) => {
-    const found = priorityOptions.find((p) => p.value === value)
-    return found?.label ?? value
+export const getPriorityLabel = (value: string | number) => {
+    const strValue = String(value) // 숫자든 문자열이든 '1','2','3'으로 맞추기
+    const found = priorityOptions.find((p) => p.value === strValue)
+    return found?.label ?? strValue
+}
+
+export const issueStatusOptions = [
+    {value: '0', label: '준비중'},
+    {value: '1', label: '진행중'},
+    {value: '2', label: '완료'},
+]
+
+export const getIssueStatusLabel = (value: string | number) => {
+    const strValue = String(value) // 숫자든 문자열이든 '0','1','2'으로 맞추기
+    const found = issueStatusOptions.find((p) => p.value === strValue)
+    return found?.label ?? strValue
 }

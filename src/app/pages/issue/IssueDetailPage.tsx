@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
-import {Issue, getPriorityLabel} from './issueTypes'
+import {Issue, getPriorityLabel, getIssueStatusLabel} from './issueTypes'
 
 const ISSUE_INFO_API = 'http://localhost:4567/schedule/issue/info'
 
@@ -44,8 +44,10 @@ export const IssueDetailPage: FC = () => {
                 <div className='d-flex flex-column'>
                     <span className='fw-bold fs-2 mb-1'>{issue.name}</span>
                     <span className='text-muted fs-7'>
-            프로젝트: {issue.projectName} · 유형: {issue.issueType} · 중요도:{' '}
-                        {getPriorityLabel(issue.issuePriority)} · 담당자: {issue.managerName}
+            프로젝트: {issue.projectName} · 유형: {issue.issueType}
+                        · 중요도:{' '}{getPriorityLabel(issue.issuePriority)}
+                        · 진행도:{' '}{getIssueStatusLabel(issue.issueStatus)}
+                        · 담당자: {issue.managerName}
           </span>
                     <span className='text-muted fs-8 mt-1'>
             기간: {issue.startDate} ~ {issue.endDate}

@@ -103,14 +103,14 @@ export const IssueCreatePage: FC = () => {
             await axios.post(
                 ISSUE_INSERT_API,
                 {
-                    title,
-                    projectId,
-                    issueType,
-                    priority,
-                    content,
-                    startDate,
-                    endDate,
-                    assigneeId,
+                    name : title,
+                    projectId : projectId,
+                    issueType : issueType,
+                    priority : priority,
+                    content : content,
+                    startDate : startDate,
+                    endDate : endDate,
+                    assigneeId: assigneeId,
                 },
                 {withCredentials: true}
             )

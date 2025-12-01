@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-import {Issue, getPriorityLabel} from './issueTypes'
+import {Issue, getPriorityLabel, getIssueStatusLabel} from './issueTypes'
 
 type IssueListResponse = {
     list: Issue[]
@@ -122,8 +122,9 @@ export const IssueListPage: FC = () => {
                                             <th style={{width: '70px'}}>번호</th>
                                             <th>제목</th>
                                             <th style={{width: '160px'}}>프로젝트</th>
-                                            <th style={{width: '100px'}}>유형</th>
+                                            <th style={{width: '120px'}}>유형</th>
                                             <th style={{width: '80px'}}>중요도</th>
+                                            <th style={{width: '80px'}}>진행도</th>
                                             <th style={{width: '120px'}}>담당자</th>
                                             <th style={{width: '180px'}}>기간</th>
                                         </tr>
@@ -151,6 +152,7 @@ export const IssueListPage: FC = () => {
                                                 <td>{issue.projectName}</td>
                                                 <td>{issue.issueType}</td>
                                                 <td>{getPriorityLabel(issue.issuePriority)}</td>
+                                                <td>{getIssueStatusLabel(issue.issueStatus)}</td>
                                                 <td>{issue.managerName}</td>
                                                 <td>
                                                     {issue.startDate} ~ {issue.endDate}

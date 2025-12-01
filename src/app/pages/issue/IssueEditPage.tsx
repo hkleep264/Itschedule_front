@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
-import {Issue, MemberItem, priorityOptions} from './issueTypes'
+import {Issue, MemberItem, priorityOptions, issueStatusOptions} from './issueTypes'
 
 const ISSUE_INFO_API = 'http://localhost:4567/schedule/issue/info'
 const ISSUE_UPDATE_API = 'http://localhost:4567/schedule/issue/update'
@@ -21,6 +21,7 @@ export const IssueEditPage: FC = () => {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [assigneeId, setAssigneeId] = useState<string>('')
+    const [status, setStatus] = useState<string>('')  // ex) '1', '2', '3' 등
 
     // 상세 조회 후 Issue 를 반환하도록 변경
     const loadDetail = async (): Promise<Issue> => {
@@ -39,15 +40,16 @@ export const IssueEditPage: FC = () => {
         setStartDate(d.startDate?.substring(0, 10))
         setEndDate(d.endDate?.substring(0, 10))
         setAssigneeId(d.managerUserId)
+        setStatus(d.issueStatus)
 
-        return d // 🔥 projectId를 쓰기 위해 반환
+        return d //  projectId를 쓰기 위해 반환
     }
 
     // projectId 를 받아서 멤버 조회
     const loadMemberList = async (projectId: number) => {
         const res = await axios.post(
             ISSUE_MEMBER_LIST_API,
-            {projectId}, // 🔥 프로젝트 ID 전달
+            {projectId}, //  프로젝트 ID 전달
             {withCredentials: true}
         )
         setMemberList(res.data.memberList ?? res.data)
@@ -64,10 +66,11 @@ export const IssueEditPage: FC = () => {
                     name: title,
                     issueType,
                     issuePriority: priority,
+                    issueStatus: status,
                     content,
                     startDate,
                     endDate,
-                    managerUserId: assigneeId,
+                    assigneeId: assigneeId,
                 },
                 {withCredentials: true}
             )
@@ -138,9 +141,10 @@ export const IssueEditPage: FC = () => {
                     />
                 </div>
 
-                {/* 중요도 + 담당자 */}
+                {/* 중요도 + 진행도 + 담당자 */}
                 <div className='mb-5 row'>
-                    <div className='col-md-6 mb-3'>
+                    {/* 중요도 */}
+                    <div className='col-md-4 mb-3'>
                         <label className='form-label fw-bold'>중요도</label>
                         <select
                             className='form-select'
@@ -155,7 +159,25 @@ export const IssueEditPage: FC = () => {
                         </select>
                     </div>
 
-                    <div className='col-md-6 mb-3'>
+                    {/* 진행도 */}
+                    <div className='col-md-4 mb-3'>
+                        <label className='form-label fw-bold'>진행도</label>
+                        <select
+                            className='form-select'
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value as '0' | '1' | '2')}
+                        >
+                            <option value=''>진행도를 선택하세요</option>
+                            {issueStatusOptions.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* 담당자 */}
+                    <div className='col-md-4 mb-3'>
                         <label className='form-label fw-bold'>담당자</label>
                         <select
                             className='form-select'

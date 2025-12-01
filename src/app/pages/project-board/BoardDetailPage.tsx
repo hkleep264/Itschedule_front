@@ -100,7 +100,7 @@ export const BoardDetailPage: FC = () => {
                 </div>
             </div>
 
-            {/* 🔥 프로젝트 참여 멤버 */}
+            {/*  프로젝트 참여 멤버 */}
             <div className='card-body mb-5'>
                 <label className='fw-bold mb-2'>프로젝트 참여 멤버</label>
 

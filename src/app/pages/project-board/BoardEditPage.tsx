@@ -177,7 +177,7 @@ export const BoardEditPage: FC = () => {
                     ></textarea>
                 </div>
 
-                {/* 🔥 프로젝트 멤버 편집 */}
+                {/*  프로젝트 멤버 편집 */}
                 <div className='mb-10'>
                     <label className='fw-bold fs-5 mb-2'>프로젝트 참여 멤버</label>
 
