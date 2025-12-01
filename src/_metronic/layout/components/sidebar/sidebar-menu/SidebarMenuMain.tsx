@@ -41,6 +41,13 @@ const SidebarMenuMain = () => {
             fontIcon='bi-exclamation-triangle'
         />
 
+        <SidebarMenuItem
+            to='/task'
+            icon='abstract-26'
+            title='Task 관리'
+            fontIcon='bi-exclamation-triangle'
+        />
+
       {/*아래는 기존 메뉴*/}
 
       {/*<div className='menu-item'>

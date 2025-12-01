@@ -15,21 +15,10 @@ export type Issue = {
     content: string
 }
 
-export type ProjectItem = {
-    projectId: number
-    projectName: string
-}
-
 export type MemberItem = {
     userId: string
     userName: string
     email: string
-}
-
-type ProjectWithMembers = {
-    projectId: number
-    projectName: string
-    members: MemberItem[]
 }
 
 export const priorityOptions = [

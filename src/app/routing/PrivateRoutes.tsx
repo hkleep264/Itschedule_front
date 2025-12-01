@@ -15,7 +15,9 @@ import {IssueListPage} from '../pages/issue/IssueListPage'
 import {IssueCreatePage} from '../pages/issue/IssueCreatePage'
 import {IssueDetailPage} from '../pages/issue/IssueDetailPage'
 import {IssueEditPage} from '../pages/issue/IssueEditPage'
+import TaskBoardPage from "../pages/task/TaskBoardPage.tsx";
 import {AdminRoute} from './AdminRoute'
+
 
 
 
@@ -47,6 +49,9 @@ const PrivateRoutes = () => {
           <Route path='/issue/new' element={<IssueCreatePage />} />
           <Route path='/issue/:id' element={<IssueDetailPage />} />
           <Route path='/issue/:id/edit' element={<IssueEditPage />} />
+
+          {/* Task 리스트 라우팅 */}
+          <Route path='/task' element={<TaskBoardPage />} />
 
 
         <Route path='builder' element={<BuilderPageWrapper />} />
