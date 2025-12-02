@@ -48,6 +48,13 @@ const SidebarMenuMain = () => {
             fontIcon='bi-exclamation-triangle'
         />
 
+        <SidebarMenuItem
+            to='/calendar'
+            icon='calendar-8'
+            title='캘린더'
+            fontIcon='bi-calendar3'
+        />
+
       {/*아래는 기존 메뉴*/}
 
       {/*<div className='menu-item'>
