@@ -1,9 +1,10 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import axios from 'axios'
 import {Issue, getPriorityLabel, getIssueStatusLabel} from './issueTypes'
-
-const ISSUE_INFO_API = 'http://localhost:4567/schedule/issue/info'
+import {
+    apiClient,
+    ISSUE_INFO_URL,
+} from '../../config/api'
 
 export const IssueDetailPage: FC = () => {
     const {id} = useParams()
@@ -12,8 +13,8 @@ export const IssueDetailPage: FC = () => {
 
     const loadDetail = async () => {
         try {
-            const res = await axios.post(
-                ISSUE_INFO_API,
+            const res = await apiClient.post(
+                ISSUE_INFO_URL,
                 {issueId: id}, // 서버 파라미터 이름에 맞게 수정
                 {withCredentials: true}
             )

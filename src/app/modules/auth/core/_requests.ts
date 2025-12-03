@@ -1,5 +1,10 @@
-import axios from "axios";
 import { AuthModel, UserModel } from "./_models";
+import {
+    apiClient,
+    LOGIN_URL,
+    REGISTER_URL,
+    CHECK_ME_URL,
+} from "../../../config/api"
 
 // const API_URL = import.meta.env.VITE_APP_API_URL;
 const API_URL = '/schedule';
@@ -15,9 +20,9 @@ export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
 // export const CHECK_ME_URL = `${API_URL}/me`;
 
 //LOCAL PC DEV
-export const LOGIN_URL = `http://localhost:4567/schedule/login`;
-export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
-export const CHECK_ME_URL = 'http://localhost:4567/schedule/me';
+// export const LOGIN_URL = `http://localhost:4567/schedule/login`;
+// export const REGISTER_URL = 'http://localhost:4567/schedule/signup';
+// export const CHECK_ME_URL = 'http://localhost:4567/schedule/me';
 
 //LOCAL RAS DEV
 // export const LOGIN_URL = `http://172.30.1.8:4567/schedule/login`;
@@ -34,7 +39,7 @@ type LoginResponse = {
 }
 
 export function login(email: string, password: string) {
-  return axios.post<LoginResponse>(
+  return apiClient.post<LoginResponse>(
       LOGIN_URL,
       {
         email: email,
@@ -85,7 +90,7 @@ export function register(
     password_confirmation: string
 ) {
     console.log("ggi");
-  return axios.post(
+  return apiClient.post(
       REGISTER_URL,
       {
         name: name,
@@ -104,18 +109,18 @@ export function register(
 
 // Server should return object => { result: boolean } (Is Email in DB)
 export function requestPassword(email: string) {
-  return axios.post<{ result: boolean }>(REQUEST_PASSWORD_URL, {
+  return apiClient.post<{ result: boolean }>(REQUEST_PASSWORD_URL, {
     email,
   });
 }
 
 export function getUserByToken(token: string) {
-  return axios.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL, {
+  return apiClient.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL, {
     api_token: token,
   });
 }
 
 // Admin 권한 확인
 export function getMyInfo() {
-    return axios.get(CHECK_ME_URL, {withCredentials: true})
+    return apiClient.get(CHECK_ME_URL, {withCredentials: true})
 }

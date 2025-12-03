@@ -1,10 +1,11 @@
 import {FC, useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import axios from 'axios'
-
-const BOARD_INFO_API = 'http://localhost:4567/schedule/board/info'
-const BOARD_UPDATE_API = 'http://localhost:4567/schedule/board/update'
-const USER_ALL_API = 'http://localhost:4567/schedule/board/alluser'
+import {
+    apiClient,
+    BOARD_INFO_URL,
+    BOARD_UPDATE_URL,
+    BOARD_ALL_USER_URL
+} from '../../config/api'
 
 type ProjectMember = {
     userId: string
@@ -30,8 +31,8 @@ export const BoardEditPage: FC = () => {
     // 1) 상세정보 로딩 (boardInfo + userList)
     // --------------------------------------------------------
     const loadDetail = async () => {
-        const res = await axios.post(
-            BOARD_INFO_API,
+        const res = await apiClient.post(
+            BOARD_INFO_URL,
             {boardId: id},
             {withCredentials: true}
         )
@@ -50,8 +51,8 @@ export const BoardEditPage: FC = () => {
     // 2) 전체 유저 리스트 로딩
     // --------------------------------------------------------
     const loadAllUsers = async () => {
-        const res = await axios.post(
-            USER_ALL_API,
+        const res = await apiClient.post(
+            BOARD_ALL_USER_URL,
             {},
             {withCredentials: true}
         )
@@ -92,8 +93,8 @@ export const BoardEditPage: FC = () => {
     // --------------------------------------------------------
     const save = async () => {
         try {
-            await axios.post(
-                BOARD_UPDATE_API,
+            await apiClient.post(
+                BOARD_UPDATE_URL,
                 {
                     boardId: id,
                     name,

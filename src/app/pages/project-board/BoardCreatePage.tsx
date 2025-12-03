@@ -1,9 +1,10 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
-
-const BOARD_INSERT_API = 'http://localhost:4567/schedule/board/insert'
-const USER_ALL_API = 'http://localhost:4567/schedule/board/alluser'
+import {
+    apiClient,
+    BOARD_CREATE_URL,
+    BOARD_ALL_USER_URL,
+} from '../../config/api'
 
 type ProjectMember = {
     userId: string
@@ -27,8 +28,8 @@ export const BoardCreatePage: FC = () => {
     // 전체 유저 로딩
     const loadAllUsers = async () => {
         try {
-            const res = await axios.post(
-                USER_ALL_API,
+            const res = await apiClient.post(
+                BOARD_ALL_USER_URL,
                 {},
                 {withCredentials: true}
             )
@@ -70,8 +71,8 @@ export const BoardCreatePage: FC = () => {
         }
 
         try {
-            await axios.post(
-                BOARD_INSERT_API,
+            await apiClient.post(
+                BOARD_CREATE_URL,
                 {
                     name,
                     content,

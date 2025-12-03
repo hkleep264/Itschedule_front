@@ -1,7 +1,10 @@
 // src/app/pages/board/BoardPage.tsx
 import {FC, useEffect, useState} from 'react'
-import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import {
+    apiClient,
+    BOARD_LIST_URL,
+} from '../../config/api'
 
 type BoardPost = {
     id: number
@@ -19,11 +22,6 @@ type BoardPageResponse = {
     totalPages: number
 }
 
-// 개발 환경: 직접 백엔드 포트로
-const BOARD_API_URL = 'http://localhost:4567/schedule/board/list'
-// nginx 프록시 쓰게 되면 '/schedule/board/list' 로 바꾸면 됨
-
-
 export const BoardPage: FC = () => {
     const [posts, setPosts] = useState<BoardPost[]>([])
     const [page, setPage] = useState(1)
@@ -37,8 +35,8 @@ export const BoardPage: FC = () => {
     const loadBoard = async (pageNo: number, kw: string) => {
         setLoading(true)
         try {
-            const res = await axios.post<BoardPageResponse>(
-                BOARD_API_URL,
+            const res = await apiClient.post<BoardPageResponse>(
+                BOARD_LIST_URL,
                 {
                     page: pageNo,
                     size: pageSize,

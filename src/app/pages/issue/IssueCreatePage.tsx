@@ -1,9 +1,11 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import {
+    apiClient,
+    ISSUE_CREATE_URL,
+    ISSUE_PROJECT_LIST_URL,
+} from '../../config/api'
 
-const ISSUE_INSERT_API = 'http://localhost:4567/schedule/issue/insert'
-const ISSUE_PROJECT_LIST_API = 'http://localhost:4567/schedule/issue/projectList'
 
 type MemberItem = {
     userId: string
@@ -43,8 +45,8 @@ export const IssueCreatePage: FC = () => {
     // ---------------------------------------------
     const loadProjectList = async () => {
         try {
-            const res = await axios.post(
-                ISSUE_PROJECT_LIST_API,
+            const res = await apiClient.post(
+                ISSUE_PROJECT_LIST_URL,
                 {},
                 {withCredentials: true}
             )
@@ -100,8 +102,8 @@ export const IssueCreatePage: FC = () => {
         }
 
         try {
-            await axios.post(
-                ISSUE_INSERT_API,
+            await apiClient.post(
+                ISSUE_CREATE_URL,
                 {
                     name : title,
                     projectId : projectId,

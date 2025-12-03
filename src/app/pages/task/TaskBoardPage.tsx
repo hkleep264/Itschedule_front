@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {DragDropContext, Droppable, DropResult} from '@hello-pangea/dnd'
 import TaskCard from './TaskCard'
 import TaskDetailDrawer from './TaskDetailDrawer'
@@ -8,6 +7,7 @@ import {
     TaskStatus,
     taskStatusColumns,
 } from './taskTypes'
+import {apiClient, TASK_LIST_URL, TASK_QUICK_UPDATE_URL} from '../../config/api'
 
 const TaskBoardPage: React.FC = () => {
     const [tasks, setTasks] = useState<Task[]>([])
@@ -17,8 +17,8 @@ const TaskBoardPage: React.FC = () => {
     /** API 호출하여 Task 목록 불러오기 */
     const loadTasks = async () => {
         try {
-            const res = await axios.post(
-                'http://localhost:4567/schedule/task/list',
+            const res = await apiClient.post(
+                TASK_LIST_URL,
                 {},
                 {withCredentials: true}
             )
@@ -113,8 +113,8 @@ const TaskBoardPage: React.FC = () => {
 
         try {
             // 4) API 호출
-            await axios.post(
-                'http://localhost:4567/schedule/task/quick_update',
+            await apiClient.post(
+                TASK_QUICK_UPDATE_URL,
                 {
                     issueId: targetTask.id,     // = 서버의 issueId
                     issueStatus: issueStatus,   // 0 / 1 / 2

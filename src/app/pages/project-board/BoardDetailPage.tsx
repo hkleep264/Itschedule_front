@@ -1,6 +1,9 @@
 import {FC, useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import {
+    apiClient,
+    BOARD_INFO_URL,
+} from '../../config/api'
 
 type ProjectMember = {
     userName: string
@@ -21,8 +24,6 @@ type BoardDetail = {
     userList: ProjectMember[]
 }
 
-const BOARD_INFO_API = 'http://localhost:4567/schedule/board/info'
-
 export const BoardDetailPage: FC = () => {
     const {id} = useParams()
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ export const BoardDetailPage: FC = () => {
 
     const loadDetail = async () => {
         try {
-            const res = await axios.post(BOARD_INFO_API,
+            const res = await apiClient.post(BOARD_INFO_URL,
                 {
                     boardId: id
                 },

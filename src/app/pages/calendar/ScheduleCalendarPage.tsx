@@ -7,6 +7,13 @@ import {
     Draggable,
     DropResult,
 } from '@hello-pangea/dnd'
+import {
+    apiClient,
+    BOARD_LIST_URL,
+    ISSUE_LIST_URL,
+    BOARD_QUICK_UPDATE_URL,
+    ISSUE_QUICK_UPDATE_URL,
+} from '../../config/api'
 
 type CalendarItemType = 'PROJECT' | 'ISSUE'
 
@@ -66,15 +73,6 @@ const expandDateRange = (start: string, end?: string | null): string[] => {
 }
 
 /* --------------------------------------------------------------------- */
-/* API 경로                                                              */
-/* --------------------------------------------------------------------- */
-
-const BOARD_LIST_API = 'http://localhost:4567/schedule/board/list'
-const ISSUE_LIST_API = 'http://localhost:4567/schedule/issue/list'
-const BOARD_UPDATE_API = 'http://localhost:4567/schedule/board/quick_update'
-const ISSUE_UPDATE_API = 'http://localhost:4567/schedule/issue/quick_update'
-
-/* --------------------------------------------------------------------- */
 /* 메인 컴포넌트                                                          */
 /* --------------------------------------------------------------------- */
 
@@ -108,9 +106,9 @@ const ScheduleCalendarPage: React.FC = () => {
             setLoading(true)
 
             const [boardRes, issueRes] = await Promise.all([
-                axios.post(BOARD_LIST_API, {}, {withCredentials: true}),
-                axios.post(
-                    ISSUE_LIST_API,
+                apiClient.post(BOARD_LIST_URL, {}, {withCredentials: true}),
+                apiClient.post(
+                    ISSUE_LIST_URL,
                     {page: 1, size: 500, projectName: ''},
                     {withCredentials: true}
                 ),
@@ -245,8 +243,8 @@ const ScheduleCalendarPage: React.FC = () => {
 
         try {
             if (target.type === 'PROJECT') {
-                await axios.post(
-                    BOARD_UPDATE_API,
+                await apiClient.post(
+                    BOARD_QUICK_UPDATE_URL,
                     {
                         boardId: target.projectId,
                         startDate: newStart,
@@ -255,8 +253,8 @@ const ScheduleCalendarPage: React.FC = () => {
                     {withCredentials: true}
                 )
             } else {
-                await axios.post(
-                    ISSUE_UPDATE_API,
+                await apiClient.post(
+                    ISSUE_QUICK_UPDATE_URL,
                     {
                         issueId: target.issueId,
                         startDate: newStart,

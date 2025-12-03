@@ -1,11 +1,13 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import axios from 'axios'
 import {Issue, MemberItem, priorityOptions, issueStatusOptions} from './issueTypes'
 
-const ISSUE_INFO_API = 'http://localhost:4567/schedule/issue/info'
-const ISSUE_UPDATE_API = 'http://localhost:4567/schedule/issue/update'
-const ISSUE_MEMBER_LIST_API = 'http://localhost:4567/schedule/issue/memberList'
+import {
+    apiClient,
+    ISSUE_UPDATE_URL,
+    ISSUE_INFO_URL,
+    ISSUE_MEMBER_LIST_URL,
+} from '../../config/api'
 
 export const IssueEditPage: FC = () => {
     const {id} = useParams()
@@ -25,8 +27,8 @@ export const IssueEditPage: FC = () => {
 
     // 상세 조회 후 Issue 를 반환하도록 변경
     const loadDetail = async (): Promise<Issue> => {
-        const res = await axios.post(
-            ISSUE_INFO_API,
+        const res = await apiClient.post(
+            ISSUE_INFO_URL,
             {issueId: id},
             {withCredentials: true}
         )
@@ -47,8 +49,8 @@ export const IssueEditPage: FC = () => {
 
     // projectId 를 받아서 멤버 조회
     const loadMemberList = async (projectId: number) => {
-        const res = await axios.post(
-            ISSUE_MEMBER_LIST_API,
+        const res = await apiClient.post(
+            ISSUE_MEMBER_LIST_URL,
             {projectId}, //  프로젝트 ID 전달
             {withCredentials: true}
         )
@@ -59,8 +61,8 @@ export const IssueEditPage: FC = () => {
         if (!issue) return
 
         try {
-            await axios.post(
-                ISSUE_UPDATE_API,
+            await apiClient.post(
+                ISSUE_UPDATE_URL,
                 {
                     issueId: issue.issueId,
                     name: title,

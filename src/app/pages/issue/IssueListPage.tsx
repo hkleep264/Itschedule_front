@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
-import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import {Issue, getPriorityLabel, getIssueStatusLabel} from './issueTypes'
+import {apiClient, ISSUE_LIST_URL} from '../../config/api'
 
 type IssueListResponse = {
     list: Issue[]
@@ -11,7 +11,7 @@ type IssueListResponse = {
     totalPages: number
 }
 
-const ISSUE_LIST_API = 'http://localhost:4567/schedule/issue/list'
+// const ISSUE_LIST_API = 'http://localhost:4567/schedule/issue/list'
 
 export const IssueListPage: FC = () => {
     const navigate = useNavigate()
@@ -28,8 +28,8 @@ export const IssueListPage: FC = () => {
     const loadIssues = async (pageNo: number, kw: string) => {
         setLoading(true)
         try {
-            const res = await axios.post<IssueListResponse>(
-                ISSUE_LIST_API,
+            const res = await apiClient.post<IssueListResponse>(
+                ISSUE_LIST_URL,
                 {
                     page: pageNo,
                     size: pageSize,

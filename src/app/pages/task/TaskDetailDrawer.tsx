@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {
     Task,
     TaskProgress,
     taskPriorityOptions,
     taskProgressOptions,
 } from './taskTypes'
+import {apiClient, TASK_UPDATE_URL} from '../../config/api'
 
 type Props = {
     task: Task | null
@@ -46,8 +46,8 @@ const TaskDetailDrawer: React.FC<Props> = ({task, open, onClose, onSave}) => {
         const issueStatus = progressToIssueStatus[localTask.progress]
 
         try {
-            await axios.post(
-                'http://localhost:4567/schedule/task/update',
+            await apiClient.post(
+                TASK_UPDATE_URL,
                 {
                     issueId: localTask.id,
                     name: localTask.title,
