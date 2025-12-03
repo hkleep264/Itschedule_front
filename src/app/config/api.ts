@@ -12,7 +12,7 @@ export const apiClient = axios.create({
 
 // ----------------- Auth -----------------
 export const LOGIN_URL = '/login'
-export const REGISTER_URL = '/register'
+export const REGISTER_URL = '/signup'
 export const VERIFY_TOKEN_URL = '/verify_token'
 export const CHECK_ME_URL = '/me'
 
