@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import {Issue, MemberItem, priorityOptions, issueStatusOptions} from './issueTypes'
+import {Issue, MemberItem, priorityOptions, issueStatusOptions, issueTypeOptions} from './issueTypes'
 
 import {
     apiClient,
@@ -17,7 +17,7 @@ export const IssueEditPage: FC = () => {
     const [memberList, setMemberList] = useState<MemberItem[]>([])
 
     const [title, setTitle] = useState('')
-    const [issueType, setIssueType] = useState('')
+    const [issueType, setIssueType] = useState<'0' | '1' | '2' | '3' >('0')
     const [priority, setPriority] = useState<'1' | '2' | '3'>('2')
     const [content, setContent] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -135,12 +135,17 @@ export const IssueEditPage: FC = () => {
                 {/* 이슈 타입 */}
                 <div className='mb-5'>
                     <label className='form-label fw-bold'>이슈 타입</label>
-                    <input
-                        type='text'
-                        className='form-control'
+                    <select
+                        className='form-select'
                         value={issueType}
-                        onChange={(e) => setIssueType(e.target.value)}
-                    />
+                        onChange={(e) => setIssueType(e.target.value as '0' | '1' | '2' | '3')}
+                    >
+                        {issueTypeOptions.map((opt) => (
+                            <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* 중요도 + 진행도 + 담당자 */}

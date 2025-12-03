@@ -5,7 +5,7 @@ export type Issue = {
     name: string
     projectId: number
     projectName: string
-    issueType: string
+    issueType: '0' | '1' | '2' | '3'
     issuePriority: '1' | '2' | '3'
     issueStatus: '0' | '1' | '2'
     managerUserId: string
@@ -19,6 +19,19 @@ export type MemberItem = {
     userId: string
     userName: string
     email: string
+}
+
+export const issueTypeOptions = [
+    {value: '0', label: '버그'},
+    {value: '1', label: '기능개선'},
+    {value: '2', label: '문의'},
+    {value: '3', label: '개인 이슈 '},
+]
+
+export const getIssueTypeLabel = (value: string | number) => {
+    const strValue = String(value) // 숫자든 문자열이든 '1','2','3', '4'으로 맞추기
+    const found = issueTypeOptions.find((p) => p.value === strValue)
+    return found?.label ?? strValue
 }
 
 export const priorityOptions = [

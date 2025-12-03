@@ -5,6 +5,7 @@ import {
     ISSUE_CREATE_URL,
     ISSUE_PROJECT_LIST_URL,
 } from '../../config/api'
+import {issueTypeOptions} from "./issueTypes.ts";
 
 
 type MemberItem = {
@@ -30,7 +31,7 @@ export const IssueCreatePage: FC = () => {
 
     const [title, setTitle] = useState('')
     const [projectId, setProjectId] = useState<number | ''>('')
-    const [issueType, setIssueType] = useState('')
+    const [issueType, setIssueType] = useState<'0' | '1' | '2' | '3' >('0')
     const [priority, setPriority] = useState<'1' | '2' | '3'>('2')
     const [content, setContent] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -173,13 +174,17 @@ export const IssueCreatePage: FC = () => {
                 {/* 이슈 타입 */}
                 <div className='mb-5'>
                     <label className='form-label fw-bold'>이슈 타입</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        placeholder='예: 버그, 기능개선, 문의 등'
+                    <select
+                        className='form-select'
                         value={issueType}
-                        onChange={(e) => setIssueType(e.target.value)}
-                    />
+                        onChange={(e) => setIssueType(e.target.value as '0' | '1' | '2' | '3')}
+                    >
+                        {issueTypeOptions.map((opt) => (
+                            <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* 중요도 + 담당자 */}

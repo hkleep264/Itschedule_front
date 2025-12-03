@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {Issue, getPriorityLabel, getIssueStatusLabel} from './issueTypes'
+import {Issue, getPriorityLabel, getIssueStatusLabel, getIssueTypeLabel} from './issueTypes'
 import {apiClient, ISSUE_LIST_URL} from '../../config/api'
 
 type IssueListResponse = {
@@ -150,7 +150,7 @@ export const IssueListPage: FC = () => {
                             </span>
                                                 </td>
                                                 <td>{issue.projectName}</td>
-                                                <td>{issue.issueType}</td>
+                                                <td>{getIssueTypeLabel(issue.issueType)}</td>
                                                 <td>{getPriorityLabel(issue.issuePriority)}</td>
                                                 <td>{getIssueStatusLabel(issue.issueStatus)}</td>
                                                 <td>{issue.managerName}</td>
