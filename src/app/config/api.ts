@@ -32,6 +32,9 @@ export const ISSUE_UPDATE_URL = '/issue/update'
 export const ISSUE_MEMBER_LIST_URL = '/issue/memberList'
 export const ISSUE_PROJECT_LIST_URL = '/issue/projectList'
 export const ISSUE_QUICK_UPDATE_URL = '/issue/quick_update'
+export const ISSUE_TODO_LIST_URL = '/issue/todo_list'
+export const ISSUE_IMPORTANT_UPDATE_URL = '/issue/important_update'
+
 
 // ----------------- Task -----------------
 export const TASK_LIST_URL = '/task/list'

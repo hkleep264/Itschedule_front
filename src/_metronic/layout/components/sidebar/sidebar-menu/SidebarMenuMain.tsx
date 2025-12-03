@@ -50,6 +50,14 @@ const SidebarMenuMain = () => {
         />
 
         <SidebarMenuItem
+            to='/todo'
+            icon='abstract-14'
+            title='TODO 리스트'
+            fontIcon='bi-check2-circle'
+        />
+
+
+        <SidebarMenuItem
             to='/calendar'
             icon='calendar-8'
             title='캘린더'
