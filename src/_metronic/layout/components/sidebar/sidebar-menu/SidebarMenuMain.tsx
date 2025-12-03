@@ -12,15 +12,16 @@ const SidebarMenuMain = () => {
 
   return (
     <>
-      {/* Dashboard*/}
-      <SidebarMenuItem
-        to='/dashboard'
-        icon='element-11'
-        title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
-        fontIcon='bi-app-indicator'
-      />
-      {/* Layout Builder */}
-      <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
+
+      {/*/!* Dashboard*!/*/}
+      {/*<SidebarMenuItem*/}
+      {/*  to='/dashboard'*/}
+      {/*  icon='element-11'*/}
+      {/*  title={intl.formatMessage({id: 'MENU.DASHBOARD'})}*/}
+      {/*  fontIcon='bi-app-indicator'*/}
+      {/*/>*/}
+      {/*/!* Layout Builder *!/*/}
+      {/*<SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />*/}
 
         {/* 관리자만 보이는 메뉴 */}
         {isAdmin && (
