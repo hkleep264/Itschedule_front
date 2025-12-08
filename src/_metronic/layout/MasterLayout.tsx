@@ -26,7 +26,7 @@ const MasterLayout = () => {
               <div className='d-flex flex-column flex-column-fluid'>
                 <Outlet />
               </div>
-              <FooterWrapper />
+              {/*<FooterWrapper />*/}
             </div>
           </div>
         </div>

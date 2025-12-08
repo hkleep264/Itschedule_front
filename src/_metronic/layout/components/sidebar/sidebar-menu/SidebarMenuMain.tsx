@@ -29,7 +29,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem
             to='/user/list'
             icon='abstract-26'
-            title='유저 리스트'
+            title='유저 리스트(관리자)'
             fontIcon='bi bi-people'
         />
         )}
