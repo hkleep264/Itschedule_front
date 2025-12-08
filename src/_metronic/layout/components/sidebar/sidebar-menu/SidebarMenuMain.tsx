@@ -47,6 +47,12 @@ const SidebarMenuMain = () => {
         {/* 관리자만 보이는 메뉴 끝 */}
 
         <SidebarMenuItem
+            to='/dashboard'
+            icon='element-11'
+            title='대쉬보드'
+            fontIcon='bi-app-indicator'
+        />
+        <SidebarMenuItem
             to='/issue'
             icon='abstract-26'
             title='이슈 관리'

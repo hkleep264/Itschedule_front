@@ -36,7 +36,8 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
+        {/*<Route path='auth/*' element={<Navigate to='/dashboard' />} />*/}
+        <Route path='auth/*' element={<Navigate to='/issue' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         {/* 관리자 전용 라우트 그룹 */}
