@@ -23,7 +23,17 @@ const SidebarMenuMain = () => {
       {/*/!* Layout Builder *!/*/}
       {/*<SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />*/}
 
-        {/* 관리자만 보이는 메뉴 */}
+        {/* 관리자만 보이는 메뉴 시작 */}
+        {/* 유저 리스트 */}
+        {isAdmin && (
+        <SidebarMenuItem
+            to='/user/list'
+            icon='abstract-26'
+            title='유저 리스트'
+            fontIcon='bi bi-people'
+        />
+        )}
+        {/* 프로젝트 리스트 */}
         {isAdmin && (
             <SidebarMenuItem
                 to='/project/board'
@@ -34,6 +44,7 @@ const SidebarMenuMain = () => {
                 // icon='shield-tick'
             />
         )}
+        {/* 관리자만 보이는 메뉴 끝 */}
 
         <SidebarMenuItem
             to='/issue'

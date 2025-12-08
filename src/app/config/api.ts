@@ -16,6 +16,11 @@ export const REGISTER_URL = '/signup'
 export const VERIFY_TOKEN_URL = '/verify_token'
 export const CHECK_ME_URL = '/me'
 
+// ----------------- USER -----------------
+export const USER_LIST_URL = '/list'
+export const USER_AUTH_UPDATE_URL = '/auth_update'
+export const USER_ADMIN_UPDATE_URL = '/admin_update'
+
 // ----------------- Project(Board) -----------------
 export const BOARD_LIST_URL = '/board/list'
 export const BOARD_INFO_URL = '/board/info'
