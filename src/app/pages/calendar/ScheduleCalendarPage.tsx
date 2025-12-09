@@ -123,12 +123,12 @@ const ScheduleCalendarPage: React.FC = () => {
                     const end = normalizeDate(b.endDate)
                     if (!start) return null
                     return {
-                        id: `P-${b.projectId}`,
+                        id: `P-${b.id}`,
                         type: 'PROJECT',
                         title: b.name,
                         startDate: start,
                         endDate: end,
-                        projectId: b.projectId,
+                        projectId: b.id,
                         projectName: b.name,
                     }
                 })
@@ -136,6 +136,7 @@ const ScheduleCalendarPage: React.FC = () => {
 
             const issueItems: CalendarItem[] = issues
                 .map((i: any): CalendarItem | null => {
+
                     const start = normalizeDate(i.startDate)
                     const end = normalizeDate(i.endDate)
                     if (!start) return null
@@ -242,7 +243,9 @@ const ScheduleCalendarPage: React.FC = () => {
         )
 
         try {
+            console.log(target.type)
             if (target.type === 'PROJECT') {
+                console.log(target)
                 await apiClient.post(
                     BOARD_QUICK_UPDATE_URL,
                     {
