@@ -45,3 +45,7 @@ export const ISSUE_IMPORTANT_UPDATE_URL = '/issue/important_update'
 export const TASK_LIST_URL = '/task/list'
 export const TASK_UPDATE_URL = '/task/update'
 export const TASK_QUICK_UPDATE_URL = '/task/quick_update'
+
+// ----------------- Alert -----------------
+export const ALERT_LIST_URL = '/alert_list'
+export const ALERT_UPDATE_URL = '/alert_status_update'
