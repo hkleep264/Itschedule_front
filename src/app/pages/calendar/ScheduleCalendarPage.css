@@ -1,0 +1,69 @@
+.calendar-grid{
+    display:grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.calendar-dow{
+    padding: 10px 8px;
+    text-align:center;
+    font-weight: 700;
+    background: rgba(0,0,0,.02);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.calendar-cell{
+    min-height: 120px;
+    padding: 8px;
+    border-right: 1px solid rgba(0,0,0,.08);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+}
+
+.calendar-cell.is-out{
+    background: rgba(0,0,0,.02);
+    color: rgba(0,0,0,.35);
+}
+
+.calendar-cell-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom: 6px;
+}
+
+.calendar-date{ font-weight: 800; }
+
+.calendar-count{
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.06);
+    cursor: pointer;
+}
+
+.calendar-items{
+    display:flex;
+    flex-direction:column;
+    gap: 4px;
+}
+
+.calendar-pill{
+    margin-top: 4px;
+    padding: 4px 6px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendar-more{
+    margin-top: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #0d6efd;
+}
