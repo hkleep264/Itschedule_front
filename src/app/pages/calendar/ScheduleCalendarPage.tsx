@@ -1,5 +1,6 @@
 // src/app/pages/calendar/ScheduleCalendarPage.tsx
 import React, {useEffect, useMemo, useState} from 'react'
+import './ScheduleCalendarPage.css'
 import axios from 'axios'
 import {
     DragDropContext,
@@ -327,101 +328,91 @@ const ScheduleCalendarPage: React.FC = () => {
 
             <div className="card-body">
                 <DragDropContext onDragEnd={handleDragEnd}>
-                    <div className="row row-cols-7 g-0">
-                        {['일','월','화','수','목','금','토'].map((x) => (
-                            <div key={x} className="col text-center fw-bold mb-2">{x}</div>
+                    <div className="calendar-grid">
+                        {['일', '월', '화', '수', '목', '금', '토'].map((x) => (
+                            <div key={x} className="calendar-dow">
+                                {x}
+                            </div>
                         ))}
 
-                        {calendarDays.map((date, idx) => {
+                        {calendarDays.map((date) => {
                             const dateKey = formatDateKey(date)
                             const dayItems = itemsByDate[dateKey] || []
-                            const shownItems = dayItems.slice(0,4)
+                            const shownItems = dayItems.slice(0, 4)
                             const hidden = dayItems.length - shownItems.length
 
                             return (
                                 <Droppable droppableId={dateKey} key={dateKey}>
                                     {(provided) => (
                                         <div
-                                            className="col border p-1"
-                                            style={{minHeight: 100}}
                                             ref={provided.innerRef}
                                             {...provided.droppableProps}
+                                            className={`calendar-cell ${isSameMonth(date) ? '' : 'is-out'}`}
                                         >
-                                            <div className={isSameMonth(date) ? '' : 'text-muted'}>
-                                                <strong>{date.getDate()}</strong>
+                                            <div className="calendar-cell-head">
+                                                <span className="calendar-date">{date.getDate()}</span>
+
                                                 {dayItems.length > 0 && (
-                                                    <span
-                                                        className="badge bg-light text-muted float-end"
-                                                        style={{cursor: 'pointer'}}
-                                                        onClick={() => openDayModal(dateKey)}
-                                                    >
-                            {dayItems.length}건
-                          </span>
+                                                    <span className="calendar-count" onClick={() => openDayModal(dateKey)}>
+                  {dayItems.length}건
+                </span>
                                                 )}
                                             </div>
 
-                                            {shownItems.map((item, index) => {
-                                                const isStart = item.startDate === dateKey
+                                            <div className="calendar-items">
+                                                {shownItems.map((item, index) => {
+                                                    const isStart = item.startDate === dateKey
 
-                                                return isStart ? (
-                                                    <Draggable draggableId={item.id} index={index} key={item.id}>
-                                                        {(drag) => (
-                                                            <div
-                                                                ref={drag.innerRef}
-                                                                {...drag.draggableProps}
-                                                                {...drag.dragHandleProps}
-                                                                className="mt-1 px-1 py-1 rounded text-truncate"
-                                                                style={{
-                                                                    fontSize: 11,
-                                                                    color: 'white',
-                                                                    cursor: 'grab',
-                                                                    backgroundColor:
-                                                                        item.type === 'PROJECT' ? '#3b82f6' : '#f97316',
-                                                                    ...drag.draggableProps.style,
-                                                                }}
-                                                                onClick={() => {
-                                                                    setSelectedItem(item)
-                                                                    setShowItemModal(true)
-                                                                }}
-                                                            >
-                                                                {item.type === 'ISSUE' && item.projectName
-                                                                    ? `[${item.projectName}] ${item.title}`
-                                                                    : item.title}
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ) : (
-                                                    <div
-                                                        key={item.id + dateKey}
-                                                        className="mt-1 px-1 py-1 rounded text-truncate"
-                                                        style={{
-                                                            fontSize: 11,
-                                                            color: 'white',
-                                                            backgroundColor:
-                                                                item.type === 'PROJECT'
-                                                                    ? 'rgba(59,130,246,0.6)'
-                                                                    : 'rgba(249,115,22,0.6)',
-                                                            cursor: 'pointer',
-                                                        }}
-                                                        onClick={() => {
-                                                            setSelectedItem(item)
-                                                            setShowItemModal(true)
-                                                        }}
-                                                    >
-                                                        {item.title}
+                                                    return isStart ? (
+                                                        <Draggable draggableId={item.id} index={index} key={item.id}>
+                                                            {(drag) => (
+                                                                <div
+                                                                    ref={drag.innerRef}
+                                                                    {...drag.draggableProps}
+                                                                    {...drag.dragHandleProps}
+                                                                    className="calendar-pill"
+                                                                    style={{
+                                                                        backgroundColor: item.type === 'PROJECT' ? '#3b82f6' : '#f97316',
+                                                                        ...drag.draggableProps.style,
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        setSelectedItem(item)
+                                                                        setShowItemModal(true)
+                                                                    }}
+                                                                    title={item.title}
+                                                                >
+                                                                    {item.type === 'ISSUE' && item.projectName
+                                                                        ? `[${item.projectName}] ${item.title}`
+                                                                        : item.title}
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                    ) : (
+                                                        <div
+                                                            key={item.id + dateKey}
+                                                            className="calendar-pill"
+                                                            style={{
+                                                                backgroundColor:
+                                                                    item.type === 'PROJECT' ? 'rgba(59,130,246,0.6)' : 'rgba(249,115,22,0.6)',
+                                                                cursor: 'pointer',
+                                                            }}
+                                                            onClick={() => {
+                                                                setSelectedItem(item)
+                                                                setShowItemModal(true)
+                                                            }}
+                                                            title={item.title}
+                                                        >
+                                                            {item.title}
+                                                        </div>
+                                                    )
+                                                })}
+
+                                                {hidden > 0 && (
+                                                    <div className="calendar-more" onClick={() => openDayModal(dateKey)}>
+                                                        +{hidden}개 더보기
                                                     </div>
-                                                )
-                                            })}
-
-                                            {hidden > 0 && (
-                                                <div
-                                                    className="text-primary small mt-1"
-                                                    style={{cursor:'pointer'}}
-                                                    onClick={() => openDayModal(dateKey)}
-                                                >
-                                                    +{hidden}개 더보기
-                                                </div>
-                                            )}
+                                                )}
+                                            </div>
 
                                             {provided.placeholder}
                                         </div>
